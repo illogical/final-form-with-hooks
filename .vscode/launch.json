@@ -15,14 +15,11 @@
       "type": "chrome",
       "request": "attach",
       "name": "Attach to Chrome",
+      "url": "http://localhost:3000",
       "port": 9222,
+      "timeout": 25000,
+      "userDataDir": false,           // use the existing Chrome. Might need to add args to your Chrome shortcut to make this work.
       "webRoot": "${workspaceFolder}"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}\\start"
     }
   ]
 }

@@ -9,6 +9,7 @@
     "@types/react-dom": "16.8.2",
     "@types/yup": "^0.26.12",
     "final-form": "^4.12.0",
+    "hookrouter": "^1.0.0-beta",
     "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",

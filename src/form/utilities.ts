@@ -9,3 +9,5 @@ export const objectToArray = (obj: any) => {
 
     return errorArray;
 };
+
+export const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));

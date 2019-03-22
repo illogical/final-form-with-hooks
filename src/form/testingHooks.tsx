@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { render } from "react-dom";
 import { useForm, useField } from "react-final-form-hooks";
-import { Message, Label, Segment, Input, Button } from "semantic-ui-react";
+import { Message, Label, Segment, Input, Button, Form } from "semantic-ui-react";
 import { string, object, number } from 'yup';
-import { objectToArray } from './utilities';
+import { objectToArray, sleep } from './utilities';
 var _ = require('lodash');
 
 
@@ -17,20 +16,13 @@ const schema = object().shape({
 // Final Form executes validate() on every key press
 const validate = async (values: any) => {
   let errors: any = {};
-  // example of manual field-level validations
-  // if (!values.firstName) {
-  //   errors.firstName = "First name required";
-  // }
-  // if (!values.lastName) {
-  //   errors.lastName = "Last name required";
-  // }
 
   await schema.validate(values, { abortEarly: false }).catch((err) => {
      if(err.inner)
      {
        // create an object from the array of ValidationError so let Final Form can bind each [field].meta.error
        errors = err.inner.reduce((errorObj: any, error: any) => {
-         // TODO: ideally this would leverage the placeholder property and replace the camel case with it ()
+         // TODO: ideally this would leverage the placeholder property and replace the camel case with it (). If I make a wrapper component then that value could be passed in.
           errorObj[error.path] = error.message;
           return errorObj;
        }, {});
@@ -64,6 +56,7 @@ export const TestingHooks = () => {
       !pristine && setShowErrors(hadErrors);
       console.log(showErrors);
 
+      //execute submit if no validation errors exist
       !hadErrors && handleSubmit(event);
     });
   };
@@ -76,30 +69,39 @@ export const TestingHooks = () => {
   return (
     <Segment>
       <form onSubmit={testingHooksSubmit}>
-        <div>
-          <Input {...firstName.input} label="First Name" placeholder="First Name" />
+        <Form.Field>
+          <Input {...firstName.input} label="First Name" placeholder="First Name" required />
           {firstName.meta.touched && firstName.meta.error && (
             <Label basic color="red" pointing="left">
               {firstName.meta.error}
             </Label>
           )}
-        </div>
-        <div>
+        </Form.Field>
+        <Form.Field>
           <Input {...lastName.input} label="Last Name" placeholder="Last Name" />
           {lastName.meta.touched && lastName.meta.error && (
             <Label basic color="red" pointing="left">
               {lastName.meta.error}
             </Label>
           )}
-        </div>
-        <div>
+        </Form.Field>
+        <Form.Field>
           <Input {...age.input} label="Age" placeholder="Age" />
           {age.meta.touched && age.meta.error && (
             <Label basic color="red" pointing="left">
               {age.meta.error}
             </Label>
           )}
-        </div>
+        </Form.Field>
+        {showErrors && (
+          <div>
+            <Message
+              error
+              header="Please fix these errors and try again"
+              list={allErrors}
+            />
+          </div>
+        )}
         <div className="buttons">
           <Button type="submit" disabled={submitting}>
             Submit
@@ -116,23 +118,13 @@ export const TestingHooks = () => {
           </Button>
         </div>
         <pre>{JSON.stringify(values, undefined, 2)}</pre>
-        {showErrors && (
-          <div>
-            <Message
-              error
-              header="Please fix these errors and try again"
-              list={allErrors}
-            />
-          </div>
-        )}
       </form>
     </Segment>
   );
 };
 
 
-const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
-
+// pretend this persisted to the server
 const onSubmit = async (values: any) => {
   await sleep(300);
   window.alert(JSON.stringify(values));

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default class RenderCount extends React.Component<void> {
+export default class RenderCount extends React.Component {
   renders = 0;
 
   render() {

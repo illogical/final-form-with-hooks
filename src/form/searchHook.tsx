@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { Container, Menu, Search } from "semantic-ui-react";
-import * as _ from "lodash";
 
 interface FakeListItem {
   id: number;

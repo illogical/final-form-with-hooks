@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Container, Menu, Search } from "semantic-ui-react";
+import * as _ from "lodash";
 
 interface FakeListItem {
   id: number;
@@ -12,6 +13,19 @@ export type SearchListProps = {
 
 export const SearchList = ({ list: fakeList }: SearchListProps) => {
   const { results, handleSearchChange } = useSearch(fakeList);
+  const [activeItemId, setActiveItemId] = useState(-1);
+
+  const listItems = results.map(item => {
+    const onClick = () => {
+      setActiveItemId(item.id);
+    };
+
+    return (
+      <Menu.Item active={activeItemId === item.id} onClick={onClick}>
+        {item.name}
+      </Menu.Item>
+    );
+  });
 
   return (
     <React.Fragment>
@@ -20,7 +34,7 @@ export const SearchList = ({ list: fakeList }: SearchListProps) => {
       </Container>
 
       <Menu fluid pointing secondary vertical>
-        {results}
+        {listItems}
       </Menu>
     </React.Fragment>
   );
@@ -28,40 +42,23 @@ export const SearchList = ({ list: fakeList }: SearchListProps) => {
 
 const useSearch = (list: FakeListItem[]) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeItem, setActiveItem] = useState(-1);
 
-  const filterResults = (criteria: string) => {
-    return list.map(item => {
-      const handleMenuItemClick = () => {
-        setActiveItem(item.id);
-      };
-
-      return (
-        (!criteria ||
-          item.name.toLowerCase().indexOf(criteria.toLowerCase()) > -1) && (
-          <Menu.Item
-            key={item.id}
-            active={activeItem === item.id}
-            onClick={handleMenuItemClick}
-          >
-            {item.name}
-          </Menu.Item>
-        )
-      );
-    });
-  };
-
-  const memoizedFilteredTenants = useMemo(() => filterResults(searchTerm), [
-    searchTerm,
-    activeItem
-  ]);
+  const filteredList = useMemo(
+    () =>
+      list.filter(
+        t =>
+          !searchTerm ||
+          t.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      ),
+    [searchTerm]
+  );
 
   const handleSearchChange = (e: any) => {
     setSearchTerm(e.target.value);
   };
 
   return {
-    results: memoizedFilteredTenants,
+    results: filteredList,
     handleSearchChange
   };
 };

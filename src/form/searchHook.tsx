@@ -10,8 +10,8 @@ export type SearchListProps = {
   list: FakeListItem[];
 };
 
-export const SearchList = ({ list: fakeList }: SearchListProps) => {
-  const { results, handleSearchChange } = useSearch(fakeList);
+export const SearchList = ({ list }: SearchListProps) => {
+  const { results, handleSearchChange } = useSearch(list);
   const [activeItemId, setActiveItemId] = useState(-1);
 
   const listItems = results.map(item => {

@@ -4,32 +4,33 @@ import "semantic-ui-css/semantic.min.css";
 import { TestingHooks } from "./form/testingHooks";
 import ModalExampleMultiple from "./modal/testingModals";
 import { ModalFactory } from "./modal/modalFactory";
-import { Button } from "semantic-ui-react";
 import { SearchList } from "./form/searchHook";
+import { Container, Segment } from "semantic-ui-react";
+import faker from "faker";
+import * as _ from "lodash";
+
+const someFakeData = _.times(20, i => {
+  return { id: i, name: faker.name.firstName() };
+});
+
+const someSortedFakeData = _.sortBy(someFakeData, ["name"]);
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <ModalExampleMultiple /> */}
+        {/* // <ModalExampleMultiple />
         <ModalFactory
           title="Modal factory in action"
           buttonText="Open my modal"
         >
           <div>Here is some simple content</div>
           <br />
-          <ModalFactory title="a 2nd modal!" buttonText="Open another one">
-            <SearchList
-              list={[
-                { id: 1, name: "Matt" },
-                { id: 2, name: "Michael" },
-                { id: 3, name: "Mark" },
-                { id: 4, name: "Sandy" },
-                { id: 5, name: "William" }
-              ]}
-            />
-          </ModalFactory>
-        </ModalFactory>
+          <ModalFactory title="a 2nd modal!" buttonText="Open another one" />
+        </ModalFactory> */}
+        <Segment>
+          <SearchList list={someSortedFakeData} />
+        </Segment>
       </div>
     );
   }

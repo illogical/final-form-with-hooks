@@ -1,14 +1,24 @@
 import React, { useMemo, useState } from "react";
-import { Container, Menu, Search } from "semantic-ui-react";
+import { Container, Menu, Search, Grid } from "semantic-ui-react";
 
+/******************************************************************************************************
+This would be in models.ts
+******************************************************************************************************/
 interface FakeListItem {
   id: number;
   name: string;
 }
 
+/******************************************************************************************************
+Properties
+******************************************************************************************************/
 export type SearchListProps = {
   list: FakeListItem[];
 };
+
+/******************************************************************************************************
+Component
+******************************************************************************************************/
 
 export const SearchList = ({ list }: SearchListProps) => {
   const { results, handleSearchChange } = useSearch(list);
@@ -20,14 +30,18 @@ export const SearchList = ({ list }: SearchListProps) => {
     };
 
     return (
-      <Menu.Item active={activeItemId === item.id} onClick={onClick}>
+      <Menu.Item
+        active={activeItemId === item.id}
+        onClick={onClick}
+        key={item.id}
+      >
         {item.name}
       </Menu.Item>
     );
   });
 
   return (
-    <React.Fragment>
+    <CenterContent>
       <Container textAlign="center">
         <Search onSearchChange={handleSearchChange} showNoResults={false} />
       </Container>
@@ -35,22 +49,20 @@ export const SearchList = ({ list }: SearchListProps) => {
       <Menu fluid pointing secondary vertical>
         {listItems}
       </Menu>
-    </React.Fragment>
+    </CenterContent>
   );
 };
+
+/******************************************************************************************************
+Custom hook
+******************************************************************************************************/
 
 const useSearch = (list: FakeListItem[]) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredList = useMemo(
-    () =>
-      list.filter(
-        t =>
-          !searchTerm ||
-          t.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
-      ),
-    [searchTerm]
-  );
+  const filteredList = useMemo(() => filterList(list, searchTerm), [
+    searchTerm
+  ]);
 
   const handleSearchChange = (e: any) => {
     setSearchTerm(e.target.value);
@@ -61,3 +73,27 @@ const useSearch = (list: FakeListItem[]) => {
     handleSearchChange
   };
 };
+
+/******************************************************************************************************
+Regular JS function
+******************************************************************************************************/
+
+const filterList = (list: FakeListItem[], searchTerm: string) => {
+  return list.filter(
+    t =>
+      !searchTerm || t.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+  );
+};
+
+/******************************************************************************************************
+Separated boilerplate HTML
+******************************************************************************************************/
+const CenterContent: React.StatelessComponent = ({ children }) => (
+  <Grid>
+    <Grid.Row columns={3}>
+      <Grid.Column width={6} />
+      <Grid.Column width={4}>{children}</Grid.Column>
+      <Grid.Column width={6} />
+    </Grid.Row>
+  </Grid>
+);

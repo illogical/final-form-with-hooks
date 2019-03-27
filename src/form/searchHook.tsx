@@ -78,15 +78,14 @@ const useSearch = (list: FakeListItem[]) => {
 Regular JS function
 ******************************************************************************************************/
 
-const filterList = (list: FakeListItem[], searchTerm: string) => {
-  return list.filter(
+const filterList = (list: FakeListItem[], searchTerm: string) =>
+  list.filter(
     t =>
       !searchTerm || t.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
   );
-};
 
 /******************************************************************************************************
-Separated boilerplate HTML
+Separated boilerplate HTML into a dead simple component
 ******************************************************************************************************/
 const CenterContent: React.StatelessComponent = ({ children }) => (
   <Grid>

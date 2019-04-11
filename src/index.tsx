@@ -9,17 +9,17 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { rootReducer } from "./store/reducers";
 import faker from "faker";
-import * as _ from "lodash";
+import * as lodash from "lodash";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-const someFakeData = _.times(20, i => {
+const someFakeData = lodash.times(20, i => {
   return {
     id: i,
     name: faker.commerce.productName(),
     price: faker.random.number(100)
   };
 });
-const someSortedFakeData = _.sortBy(someFakeData, "name");
+const someSortedFakeData = lodash.sortBy(someFakeData, "name");
 
 // this is all it takes to configure redux
 // pass in the reducers and optionally pass initial state and enhancers

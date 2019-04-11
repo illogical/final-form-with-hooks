@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { RootState } from "../reducers";
-import { SearchList } from "../../form/searchRedux";
+import { SearchList } from "../../listSearch/searchRedux";
 import { actions } from "../actions";
 import {
   getSearchTerm,

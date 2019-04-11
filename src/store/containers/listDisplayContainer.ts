@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { ListDisplay } from "../../form/listDisplay";
+import { ListDisplay } from "../../listSearch/listDisplay";
 import { getActiveListItem } from "../selectors";
 import { RootState } from "../reducers";
 

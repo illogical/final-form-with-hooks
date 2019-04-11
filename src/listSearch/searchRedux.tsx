@@ -4,7 +4,7 @@ import { Container, Menu, Search, Grid } from "semantic-ui-react";
 /******************************************************************************************************
 This would be in another file such as models.ts
 ******************************************************************************************************/
-export interface SampleListItem {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -14,7 +14,7 @@ export interface SampleListItem {
 Properties expected to be passed to the component
 ******************************************************************************************************/
 export type SearchListProps = {
-  list: SampleListItem[];
+  list: Product[];
   activeItemId: number;
   searchTerm: string;
   onActiveChanged: (id: number) => void;

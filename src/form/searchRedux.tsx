@@ -7,6 +7,7 @@ This would be in another file such as models.ts
 export interface SampleListItem {
   id: number;
   name: string;
+  price: number;
 }
 
 /******************************************************************************************************

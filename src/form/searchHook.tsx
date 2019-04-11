@@ -4,16 +4,17 @@ import { Container, Menu, Search, Grid } from "semantic-ui-react";
 /******************************************************************************************************
 This would be in another file such as models.ts
 ******************************************************************************************************/
-interface SampleListItem {
+interface Product {
   id: number;
   name: string;
+  price: number;
 }
 
 /******************************************************************************************************
 Properties expected to be passed to the component
 ******************************************************************************************************/
 export type SearchListProps = {
-  list: SampleListItem[];
+  list: Product[];
 };
 
 /******************************************************************************************************
@@ -58,7 +59,7 @@ export const SearchList = ({ list }: SearchListProps) => {
 Custom hook
 ******************************************************************************************************/
 
-const useSearch = (list: SampleListItem[]) => {
+const useSearch = (list: Product[]) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // broke this into a function below just for readability & separation of concerns
@@ -82,7 +83,7 @@ const useSearch = (list: SampleListItem[]) => {
 Regular JS function
 ******************************************************************************************************/
 
-const filterList = (list: SampleListItem[], searchTerm: string) =>
+const filterList = (list: Product[], searchTerm: string) =>
   list.filter(
     t =>
       !searchTerm || t.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1

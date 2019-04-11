@@ -4,18 +4,18 @@ import * as _ from "lodash";
 
 import { combineReducers } from "redux";
 import { StateType } from "typesafe-actions";
-import { SampleListItem } from "../form/searchRedux";
+import { Product } from "../listSearch/searchRedux";
 
 /*************************************************************************************************************
 Reducers
 *************************************************************************************************************/
 
-const defaultListState: SampleListItem[] = []; // make an explicitly-typed array to drive the intellisense of this piece of state
+const defaultListState: Product[] = []; // make an explicitly-typed array to drive the intellisense of this piece of state
 
 export const sampleListReducer = (
   state = defaultListState, // IMPORTANT: This provides the type to intellisense. Always define this.
   action: RootAction
-): SampleListItem[] => {
+): Product[] => {
   switch (action.type) {
     case getType(actions.setSampleList):
       return _.sortBy(action.payload, "name"); // sort the list before storing it into Redux state

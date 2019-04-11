@@ -1,5 +1,5 @@
 import { createAction, ActionType } from "typesafe-actions";
-import { SampleListItem } from "../form/searchRedux";
+import { Product } from "../listSearch/searchRedux";
 
 export const actions = {
   updateActiveId: createAction("updateActiveId", resolve => (itemId: number) =>
@@ -13,7 +13,7 @@ export const actions = {
 
   setSampleList: createAction(
     "setSampleList",
-    resolve => (searchTerm: SampleListItem[]) => resolve(searchTerm)
+    resolve => (searchTerm: Product[]) => resolve(searchTerm)
   )
 };
 

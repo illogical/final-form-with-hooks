@@ -10,10 +10,8 @@ import { Product } from "../listSearch/searchRedux";
 Reducers
 *************************************************************************************************************/
 
-const defaultListState: Product[] = []; // make an explicitly-typed array to drive the intellisense of this piece of state
-
 export const sampleListReducer = (
-  state = defaultListState, // IMPORTANT: This provides the type to intellisense. Always define this.
+  state: Product[] = [], // IMPORTANT: This provides the type to intellisense. Always define this.
   action: RootAction
 ): Product[] => {
   switch (action.type) {

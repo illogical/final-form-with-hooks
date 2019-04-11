@@ -3,7 +3,6 @@ import { RootState } from "../reducers";
 import { SearchList } from "../../listSearch/searchRedux";
 import { actions } from "../actions";
 import {
-  getSearchTerm,
   getActiveId,
   getFilteredSampleList
 } from "../selectors";
@@ -12,8 +11,7 @@ import { Dispatch } from "redux";
 const mapStateToProps = (state: RootState) => {
   return {
     list: getFilteredSampleList(state),
-    activeItemId: getActiveId(state),
-    searchTerm: getSearchTerm(state)
+    activeItemId: getActiveId(state)
   };
 };
 

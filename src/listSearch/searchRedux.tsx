@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { Container, Menu, Search, Grid } from "semantic-ui-react";
 
 /******************************************************************************************************
@@ -16,7 +16,6 @@ Properties expected to be passed to the component
 export type SearchListProps = {
   list: Product[];
   activeItemId: number;
-  searchTerm: string;
   onActiveChanged: (id: number) => void;
   onSearchChanged: (searchTerm: string) => void;
 };
